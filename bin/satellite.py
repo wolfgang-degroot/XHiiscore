@@ -44,7 +44,7 @@ def inventory(address):
     with open(address, "w") as chest:
         bounty = hunter(gatherer(dimension))
         storage.update(bounty)
-        json.dump(storage, chest)
+        json.dump(storage, chest, separators=(',', ':'),)
 
 
 def sun(dimension="world", interval=30):
@@ -52,9 +52,9 @@ def sun(dimension="world", interval=30):
     address = dimension+".json"
     while 1 == 1:
         inventory(address)
-        if counter % 25 == 0:
+        if counter % 32 == 0:
             print("[", end="")
-        elif counter % 25 == 24:
+        elif counter % 32 == 31:
             print("]")
         else:
             print(".", end="")
@@ -63,7 +63,7 @@ def sun(dimension="world", interval=30):
 
 
 if __name__ == "__main__":
-    interval = 3  # Update rate in seconds
+    interval = 15  # Update rate in seconds
     dimension = "world"
     # Dimension Guide:
     # Overworld	= 'world'
