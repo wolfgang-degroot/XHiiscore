@@ -1,8 +1,9 @@
-import sys
+import urllib3
+import os.path
 import time
 import requests
 import json
-
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def gatherer(dimension="world", map="map.knockoutmc.com"):
 	path = "/up/world/"
@@ -27,23 +28,26 @@ def hunter(data):
 		]
 	return [data["timestamp"], frame]
 
-def sun(dimension, interval=5):
+def sun(dimension, interval=30):
+	address = dimension+".json"
+	if not os.path.exists(address):
+		print("No log found. Generating new...")
+		open(address, 'w').close()
 	while 1 == 1:
-		with open(dimension+".json", "r") as chest:
+		with open(address, "r+") as chest:
 			bounty = hunter(gatherer(dimension))
 			try:
-				storage = json.load(chest)
+				storage = dict(json.load(chest))
 			except:
 				storage = dict()
 			storage[bounty[0]] = bounty[1]
-
-		with open(dimension+".json", "w") as f:
-	   		f.write(json.dumps(storage))
+			chest.write(json.dumps(storage, indent=2))
+			print(".", end="")
 		time.sleep(interval)
 
 
 if __name__ == "__main__":
-	interval = 30  # Update rate in seconds
+	interval = 3  # Update rate in seconds
 	dimension = "world"
 	# Dimension Guide:
 	# Overworld	= 'world'
