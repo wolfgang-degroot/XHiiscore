@@ -1,0 +1,12 @@
+{
+    "name": "wolfgang-degroot/xhiiscore",
+    "type": "project",
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "Hiitola Department of Defense",
+            "email": "hiitola@wolfgang.space"
+        }
+    ],
+    "require": {}
+}
