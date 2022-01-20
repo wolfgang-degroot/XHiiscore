@@ -58,16 +58,24 @@ def inventory(address):
 
 def sun(dimension="world", interval=30):
 	counter = 0
+	missed = 0
 	address = dimension+".json"
 	while 1 == 1:
 		if inventory(address):
 			if counter % 32 == 0:
 				print("[", end="")
 			elif counter % 32 == 31:
-				print("]")
+				print("]", end="")
+				if missed > 0:
+					print(" " + str(missed) + " missed.")
+				else:
+					print("\n")
+				missed = 0
 			else:
 				print(".", end="")
 			counter += 1
+		else:
+			missed += 1
 		time.sleep(interval)
 
 
