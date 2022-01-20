@@ -1,4 +1,3 @@
-from pickle import FALSE
 import urllib3
 import os.path
 import time
@@ -8,9 +7,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def gatherer(dimension="world", map="map.knockoutmc.com"):
-    path = "/up/world/"
-
-    url = "https://" + map + path + dimension + "/"
+    url = "https://{}/up/world/{}/".format(map, dimension)
     try:
         frame = requests.get(url, verify=False).json()
     except:
@@ -58,11 +55,9 @@ def inventory(address):
 
 
 def sun(dimension="world", interval=30):
-    counter = 0
-    missed = 0
-    address = dimension+".json"
+    counter = missed = 0  # Weird as hell but it works
     while 1 == 1:
-        if inventory(address):
+        if inventory(dimension+".json"):
             if counter % 32 == 0:
                 print("[", end="")
             elif counter % 32 == 31:
