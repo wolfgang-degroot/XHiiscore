@@ -1,8 +1,9 @@
 import urllib3
-import os.path
 import time
 import requests
+import os.path
 import json
+import gzip
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
